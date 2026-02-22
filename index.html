@@ -1,174 +1,648 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" class="scroll-smooth">
+
 <head>
-<title>Arokya Oil Mill</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata">
-<style>
-body, html {
-  height: 100%;
-  font-family: "Inconsolata", sans-serif;
-}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arokya Oil Mill | Premium Edible & Pure Oils</title>
 
-.bgimg {
-  background-position: center;
-  background-size: cover;
-  background-image: url("https://www.verywellhealth.com/thmb/SLC85m5yWlPQeggC7Xwb4Vu4IBk=/1414x1414/smart/filters:no_upscale()/GettyImages-8081649701-5b37f75946e0fb0037ce0001.jpg");
-  min-height: 75%;
-}
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap"
+    rel="stylesheet">
 
-.menu {
-  display: none;
-}
-</style>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Tailwind Configuration for Cinematic Theme -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Outfit', 'sans-serif'],
+            serif: ['Playfair Display', 'serif'],
+          },
+          colors: {
+            brand: {
+              black: '#0a0a0a',
+              dark: '#121212',
+              charcoal: '#1a1a1a',
+              sand: '#f5f0e6',
+              gold: '#d4af37',
+              muted: '#8e8e8e'
+            }
+          },
+          backgroundImage: {
+            'noise': 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.8\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E")',
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  <style>
+    body {
+      background-color: #0a0a0a;
+      color: #f5f0e6;
+    }
+
+    /* Noise Overlay */
+    .noise-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 50;
+      opacity: 0.04;
+      mix-blend-mode: overlay;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #0a0a0a;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #333;
+      border-radius: 5px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+
+    /* Hide menu tabs by default */
+    .menu-content {
+      display: none;
+    }
+
+    .menu-content.active {
+      display: grid;
+    }
+  </style>
 </head>
-<body>
 
-<!-- Links (sit on top) -->
-<div class="w3-top">
-  <div class="w3-row w3-padding w3-black">
-    <div class="w3-col s3">
-      <a href="#" class="w3-button w3-block w3-black">HOME</a>
-    </div>
-    <div class="w3-col s3">
-      <a href="#about" class="w3-button w3-block w3-black">ABOUT</a>
-    </div>
-    <div class="w3-col s3">
-      <a href="#menu" class="w3-button w3-block w3-black">PRODUCTS</a>
-    </div>
-    <div class="w3-col s3">
-      <a href="#where" class="w3-button w3-block w3-black">WHERE</a>
-    </div>
-  </div>
-</div>
+<body class="antialiased selection:bg-brand-gold selection:text-brand-black overflow-x-hidden">
 
-<!-- Header with image -->
-<header class="bgimg w3-display-container w3-grayscale-min" id="home">
-  <div class="w3-display-middle w3-center">
-    <span class="w3-text-white" style="font-size:90px">Arokya<br>Oil<br>Mill</span>
-  </div>
-</header>
+  <!-- Cinematic Noise -->
+  <div class="noise-overlay bg-noise"></div>
 
-<!-- Add a background color and large text to the whole page -->
-<div class="w3-sand w3-grayscale w3-large">
-
-<!-- About Container -->
-<div class="w3-container" id="about">
-  <div class="w3-content" style="max-width:700px">
-    <h5 class="w3-center w3-padding-64"><span class="w3-tag w3-wide">ABOUT US</span></h5>
-    <p>Established as a company, Arokya Oil Mill is known as the foremost null of a high-quality range of Coconut Oil, Desiccated Coconut Powder, Dry Coconut Powder, Offered Desiccated Coconut Powder, Dry Coconut Powder, are well-known for the features like long working life, high functionality.With the help of the experienced quality indian suppliers professionals, we have been able to offer Desiccated Coconut Powder, Dry Coconut Powder, in various ranges and models.The Desiccated Coconut Powder, Dry Coconut Powder, position in the international market, we are best in providing Desiccated Coconut Powder, Dry Coconut Powder, to the regular clients at very inexpensive price.</p>
-    <p>Arokya Oil Mill is the most eminent company which is involved in the manufacturing, supplying, exporting and wholesaling of Coconut Oil, Coconut Cake, Dry Coconut Copra, Dry Coconut Shell and many more products. We are basically a partnership based company which was established in the year 2010 at Tiruppur in Tamil Nadu, India. Also, our products are known for its premium quality, freshness, hygienic nature, 100% purity and contamination free nature. As per the international quality norms and by using advance technology, we process our products for best output. Moreover, our company keeps the different demands and requirements of the patrons in our mind while manufacturing the range due to which we are able to satisfy our clients completely. Client satisfaction is the main objective of our company as we are the client centric company and to achieve this objective consistently, we provide best quality products to our clients at market leading prices. To make required and necessary changes and improvement in products and policies, we keep taking the valuable feedback and suggestions time to time. Under the guidance of Mr. Muthukumar who is amongst the reputed partners of our company, we are able to complete the given task on time and achieve the target goals smoothly. He manages the entire business in systematic manner with utilizing the available resources completely and maximizing the profit. Also, his rich experience and vast industrial knowledge help him to take right decision at right time which is always profitable for company. He is the most important part of our organization that plays an unforgettable role in our success and growth. Also, our company is work with around 26 to 50 people who are dedicated towards the work and our total turnover is around Rs. 1 - 2 Crore. We produce premium quality products in bulk as per the actual demands and requirements of the customers with the help of our advance infrastructure which is equipped with warehouse and packaging facilities. Furthermore, we make improvement in our infrastructure time to time according to the advancement in the technology and recent scenario of the market. The entire infrastructure is controlled by the skilled and experienced professionals of our company in perfect manner.</p>
-    
-    
-    <div class="w3-panel w3-leftbar w3-light-grey">
-      <p><i>"Use products from nature for what it's worth - but never too early, nor too late." -Arokya Oil Mill.</i></p>
+  <!-- NAVBAR - Floating Island -->
+  <nav id="navbar"
+    class="fixed top-6 left-1/2 -translate-x-1/2 z-40 w-[90%] max-w-2xl px-6 py-3 rounded-full border border-white/10 bg-brand-black/40 backdrop-blur-md transition-all duration-500 ease-out flex items-center justify-between">
+    <a href="#home"
+      class="font-serif text-xl tracking-wider text-brand-sand hover:text-brand-gold transition-colors">Arokya</a>
+    <div class="hidden md:flex items-center gap-8 text-sm uppercase tracking-widest font-medium text-brand-muted">
+      <a href="#about" class="hover:text-brand-sand transition-colors">Philosophy</a>
+      <a href="#products" class="hover:text-brand-sand transition-colors">Products</a>
+      <a href="#contact" class="hover:text-brand-sand transition-colors">Contact</a>
     </div>
-    <img src="https://post.medicalnewstoday.com/wp-content/uploads/sites/3/2020/02/320644_2200-732x549.jpg" style="width:100%;max-width:1000px" class="w3-margin-top">
-    <p><strong>Opening hours:</strong> everyday from 9am to 5pm.</p>
-    <p><strong>Address:</strong> Savadipalayam,Kangeyam,Tamil Nadu</p>
-  </div>
-</div>
+    <a href="#products"
+      class="px-5 py-2 text-xs font-bold uppercase tracking-widest bg-brand-sand text-brand-black rounded-full hover:bg-brand-gold transition-all hover:scale-105 active:scale-95">Explore</a>
+  </nav>
 
-<!-- Menu Container -->
-<div class="w3-container" id="menu">
-  <div class="w3-content" style="max-width:700px">
- 
-    <h5 class="w3-center w3-padding-48"><span class="w3-tag w3-wide">OUR PRODUCTS</span></h5>
-  
-    <div class="w3-row w3-center w3-card w3-padding">
-      <a href="javascript:void(0)" onclick="openMenu(event, '1/2');" id="myLink">
-        <div class="w3-col s6 tablink">1/2</div>
+  <!-- HERO - Cinematic Opening Shot -->
+  <section id="home" class="relative w-full h-screen flex flex-col items-center justify-center overflow-hidden">
+    <!-- Background Image with Overlay -->
+    <div class="absolute inset-0 z-0">
+      <img
+        src="https://www.verywellhealth.com/thmb/SLC85m5yWlPQeggC7Xwb4Vu4IBk=/1414x1414/smart/filters:no_upscale()/GettyImages-8081649701-5b37f75946e0fb0037ce0001.jpg"
+        alt="Arokya Oil Mill Background" class="w-full h-full object-cover scale-105 transform origin-center"
+        id="hero-img">
+      <div class="absolute inset-0 bg-gradient-to-b from-brand-black/80 via-brand-dark/60 to-brand-black"></div>
+    </div>
+
+    <!-- Content -->
+    <div class="relative z-10 text-center px-4 max-w-4xl mx-auto flex flex-col items-center">
+      <span
+        class="hero-elem block text-brand-gold text-sm md:text-base font-medium tracking-[0.3em] uppercase mb-6 opacity-0 translate-y-4">Established
+        2010</span>
+      <h1
+        class="hero-elem font-serif text-6xl md:text-8xl lg:text-9xl text-brand-sand leading-none mb-6 opacity-0 translate-y-8">
+        Arokya<br><span class="italic text-brand-gold/90">Oil Mill</span>
+      </h1>
+      <p
+        class="hero-elem text-brand-muted text-lg md:text-xl font-light tracking-wide max-w-2xl mx-auto mb-10 opacity-0 translate-y-4">
+        Premium Edible & Pure Oils. Processed with advanced technology for 100% purity, uncompromising quality, and
+        hygienic freshness.
+      </p>
+      <div class="hero-elem opacity-0 translate-y-4">
+        <a href="#about"
+          class="inline-flex items-center justify-center w-14 h-14 rounded-full border border-white/20 hover:border-brand-gold hover:bg-brand-gold/10 transition-colors group">
+          <svg xmlns="http://www.w3.org/2000/svg"
+            class="w-5 h-5 text-brand-sand group-hover:text-brand-gold transition-colors block group-hover:translate-y-1 duration-300"
+            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUE PROPS - Interactive Micro-Artifacts -->
+  <section class="py-24 bg-brand-black relative z-20 border-t border-white/5">
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-24">
+      <div class="val-prop flex flex-col items-center md:items-start text-center md:text-left opacity-0">
+        <span class="text-brand-gold text-4xl mb-4 font-serif">01</span>
+        <h3 class="text-xl font-medium tracking-wide text-brand-sand mb-3">100% Purity</h3>
+        <p class="text-brand-muted font-light leading-relaxed">Contamination-free processes ensuring the highest grade
+          of edible oils.</p>
+      </div>
+      <div class="val-prop flex flex-col items-center md:items-start text-center md:text-left opacity-0">
+        <span class="text-brand-gold text-4xl mb-4 font-serif">02</span>
+        <h3 class="text-xl font-medium tracking-wide text-brand-sand mb-3">Advanced Tech</h3>
+        <p class="text-brand-muted font-light leading-relaxed">Modern milling infrastructure operating under
+          international quality norms.</p>
+      </div>
+      <div class="val-prop flex flex-col items-center md:items-start text-center md:text-left opacity-0">
+        <span class="text-brand-gold text-4xl mb-4 font-serif">03</span>
+        <h3 class="text-xl font-medium tracking-wide text-brand-sand mb-3">Premium Quality</h3>
+        <p class="text-brand-muted font-light leading-relaxed">Hygienic nature and freshness guaranteed in every
+          domestic and export shipment.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT / PHILOSOPHY - Manifesto Treatment -->
+  <section id="about" class="py-32 bg-brand-dark relative z-20 overflow-hidden">
+    <!-- Decorative Typography -->
+    <div class="absolute -left-20 top-1/2 -translate-y-1/2 opacity-5 pointer-events-none select-none overflow-hidden">
+      <h2 class="text-[15rem] font-serif font-bold text-white whitespace-nowrap">Philosophy</h2>
+    </div>
+
+    <div class="max-w-5xl mx-auto px-6 relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+      <div class="about-text space-y-8">
+        <div class="flex items-center gap-4 text-brand-gold tracking-[0.2em] text-sm uppercase font-semibold">
+          <div class="w-12 h-[1px] bg-brand-gold"></div>
+          OUR MANIFESTO
+        </div>
+
+        <h2 class="font-serif text-4xl md:text-5xl lg:text-6xl text-brand-sand leading-tight">
+          Nature's Worth, extracted with precision.
+        </h2>
+
+        <div class="space-y-6 text-brand-muted font-light text-lg leading-relaxed">
+          <p>
+            Established in 2010 at Tiruppur, Tamil Nadu, Arokya Oil Mill stands as an eminent manufacturer, supplier,
+            and exporter. Guided by the vision of Mr. Muthukumar, we have built a legacy on trust, volume, and
+            uncompromising standards.
+          </p>
+          <p>
+            Client satisfaction is our core directive. Through a dedicated workforce of 26-50 professionals and advanced
+            warehousing, we handle bulk production effortlessly—adapting our infrastructure consistently to modern
+            market scenarios.
+          </p>
+        </div>
+
+        <blockquote class="pl-6 border-l-2 border-brand-gold py-2 text-brand-sand italic text-xl font-serif">
+          "Use products from nature for what it's worth - but never too early, nor too late."
+        </blockquote>
+      </div>
+
+      <div class="about-img relative h-[600px] w-full rounded-2xl overflow-hidden group">
+        <img src="https://post.medicalnewstoday.com/wp-content/uploads/sites/3/2020/02/320644_2200-732x549.jpg"
+          alt="Arokya Factory Production"
+          class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105">
+        <div class="absolute inset-0 bg-brand-black/20 group-hover:bg-brand-black/0 transition-colors duration-500">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS - Premium Display Grid -->
+  <section id="products" class="py-32 bg-brand-black relative z-20">
+    <div class="max-w-7xl mx-auto px-6">
+
+      <div class="text-center mb-16 prod-header">
+        <div
+          class="flex items-center justify-center gap-4 text-brand-gold tracking-[0.2em] text-sm uppercase font-semibold mb-6">
+          <div class="w-8 h-[1px] bg-brand-gold"></div>
+          CATALOG
+          <div class="w-8 h-[1px] bg-brand-gold"></div>
+        </div>
+        <h2 class="font-serif text-5xl md:text-6xl text-brand-sand">Our Produce</h2>
+      </div>
+
+      <!-- Hero Product: Coconut Oil -->
+      <div
+        class="hero-prod relative w-full rounded-3xl overflow-hidden bg-brand-charcoal border border-white/10 mb-24 group">
+        <div class="grid grid-cols-1 lg:grid-cols-2">
+          <!-- Image Side -->
+          <div class="relative h-[400px] lg:h-[600px] overflow-hidden">
+            <img src="https://3.imimg.com/data3/QS/WQ/MY-9039037/natural-coconut-oil-250x250.jpg"
+              alt="Premium Coconut Oil"
+              class="absolute inset-0 w-full h-full object-cover opacity-80 mix-blend-luminosity group-hover:mix-blend-normal group-hover:scale-105 transition-all duration-1000">
+            <div
+              class="absolute inset-0 bg-gradient-to-r from-brand-black/80 lg:from-transparent lg:via-brand-black/40 lg:to-brand-charcoal">
+            </div>
+          </div>
+          <!-- Content Side -->
+          <div class="relative z-10 p-10 lg:p-16 flex flex-col justify-center bg-brand-charcoal">
+            <div class="text-brand-gold text-sm tracking-[0.3em] font-medium uppercase mb-4">Signature Product</div>
+            <h3 class="font-serif text-4xl lg:text-6xl text-brand-sand mb-6">Pure Coconut Oil</h3>
+            <p class="text-brand-muted text-lg font-light leading-relaxed mb-8">
+              Our flagship edible oil. Extracted using advanced milling technology to retain 100% purity, distinct
+              aroma, and essential nutrients. Experience uncontaminated perfection.
+            </p>
+            <div class="flex items-center gap-6 border-t border-white/5 pt-8 mt-auto">
+              <div>
+                <span class="block text-brand-sand font-medium text-2xl">Premium</span>
+                <span class="block text-brand-muted text-sm uppercase tracking-wider">Quality</span>
+              </div>
+              <div class="w-[1px] h-12 bg-white/10"></div>
+              <div>
+                <span class="block text-brand-sand font-medium text-2xl">100%</span>
+                <span class="block text-brand-muted text-sm uppercase tracking-wider">Pure</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Secondary Products Grid -->
+      <div class="text-center mb-12 prod-header-secondary opacity-0">
+        <h3 class="font-serif text-3xl text-brand-sand">Specialty Derivatives</h3>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+        <!-- Item 2 -->
+        <div
+          class="prod-card group relative overflow-hidden rounded-2xl bg-brand-charcoal border border-white/5 aspect-[4/5] flex flex-col justify-end p-6 cursor-pointer">
+          <img src="https://3.imimg.com/data3/CJ/FN/MY-9039037/coconut-powder-250x250.jpg" alt="Dry Coconut Powder"
+            class="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-luminosity group-hover:mix-blend-normal group-hover:scale-110 group-hover:opacity-100 transition-all duration-700">
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-brand-black via-brand-black/40 to-transparent opacity-90 group-hover:opacity-60 transition-opacity duration-500">
+          </div>
+          <div
+            class="relative z-10 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+            <h3 class="text-2xl font-serif text-brand-sand mb-2">Dry Coconut Powder</h3>
+            <p
+              class="text-brand-muted text-sm tracking-wide opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 uppercase">
+              High Quality</p>
+          </div>
+        </div>
+
+        <!-- Item 3 -->
+        <div
+          class="prod-card group relative overflow-hidden rounded-2xl bg-brand-charcoal border border-white/5 aspect-[4/5] flex flex-col justify-end p-6 cursor-pointer">
+          <img src="https://3.imimg.com/data3/CA/BB/MY-9039037/coconut-milling-copra-250x250.jpg"
+            alt="Coconut Copra Cake"
+            class="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-luminosity group-hover:mix-blend-normal group-hover:scale-110 group-hover:opacity-100 transition-all duration-700">
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-brand-black via-brand-black/40 to-transparent opacity-90 group-hover:opacity-60 transition-opacity duration-500">
+          </div>
+          <div
+            class="relative z-10 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+            <h3 class="text-2xl font-serif text-brand-sand mb-2">Coconut Copra Cake</h3>
+            <p
+              class="text-brand-muted text-sm tracking-wide opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 uppercase">
+              Agricultural Use</p>
+          </div>
+        </div>
+
+        <!-- Item 4 -->
+        <div
+          class="prod-card group relative overflow-hidden rounded-2xl bg-brand-charcoal border border-white/5 aspect-[4/5] flex flex-col justify-end p-6 cursor-pointer">
+          <img src="https://3.imimg.com/data3/JU/YP/MY-9039037/coconut-fiber-250x250.jpg" alt="Coconut Fiber"
+            class="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-luminosity group-hover:mix-blend-normal group-hover:scale-110 group-hover:opacity-100 transition-all duration-700">
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-brand-black via-brand-black/40 to-transparent opacity-90 group-hover:opacity-60 transition-opacity duration-500">
+          </div>
+          <div
+            class="relative z-10 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+            <h3 class="text-2xl font-serif text-brand-sand mb-2">Coconut Fiber</h3>
+            <p
+              class="text-brand-muted text-sm tracking-wide opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 uppercase">
+              Industrial Grade</p>
+          </div>
+        </div>
+
+        <!-- Item 5 -->
+        <div
+          class="prod-card group relative overflow-hidden rounded-2xl bg-brand-charcoal border border-white/5 aspect-[4/5] flex flex-col justify-end p-6 cursor-pointer">
+          <img src="https://3.imimg.com/data3/EG/YB/MY-9039037/coconut-oil-cake-250x250.jpg" alt="Coconut Oil Cake"
+            class="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-luminosity group-hover:mix-blend-normal group-hover:scale-110 group-hover:opacity-100 transition-all duration-700">
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-brand-black via-brand-black/40 to-transparent opacity-90 group-hover:opacity-60 transition-opacity duration-500">
+          </div>
+          <div
+            class="relative z-10 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+            <h3 class="text-2xl font-serif text-brand-sand mb-2">Coconut Oil Cake</h3>
+            <p
+              class="text-brand-muted text-sm tracking-wide opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 uppercase">
+              Bulk Supply</p>
+          </div>
+        </div>
+
+        <!-- Item 6 -->
+        <div
+          class="prod-card group relative overflow-hidden rounded-2xl bg-brand-charcoal border border-white/5 aspect-[4/5] flex flex-col justify-end p-6 cursor-pointer">
+          <img src="https://3.imimg.com/data3/QL/EQ/MY-9039037/coconut-ball-copra-250x250.jpg" alt="Coconut Ball Copra"
+            class="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-luminosity group-hover:mix-blend-normal group-hover:scale-110 group-hover:opacity-100 transition-all duration-700">
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-brand-black via-brand-black/40 to-transparent opacity-90 group-hover:opacity-60 transition-opacity duration-500">
+          </div>
+          <div
+            class="relative z-10 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+            <h3 class="text-2xl font-serif text-brand-sand mb-2">Coconut Ball Copra</h3>
+            <p
+              class="text-brand-muted text-sm tracking-wide opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 uppercase">
+              A-Grade Shell</p>
+          </div>
+        </div>
+
+        <!-- Item 7 -->
+        <div
+          class="prod-card group relative overflow-hidden rounded-2xl bg-brand-charcoal border border-white/5 aspect-[4/5] flex flex-col justify-end p-6 cursor-pointer">
+          <img src="https://3.imimg.com/data3/KR/GR/MY-9039037/husked-coconut-250x250.jpg" alt="Husked Coconut"
+            class="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-luminosity group-hover:mix-blend-normal group-hover:scale-110 group-hover:opacity-100 transition-all duration-700">
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-brand-black via-brand-black/40 to-transparent opacity-90 group-hover:opacity-60 transition-opacity duration-500">
+          </div>
+          <div
+            class="relative z-10 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+            <h3 class="text-2xl font-serif text-brand-sand mb-2">Husked Coconut</h3>
+            <p
+              class="text-brand-muted text-sm tracking-wide opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 uppercase">
+              Fresh Harvest</p>
+          </div>
+        </div>
+
+        <!-- Item 8 -->
+        <div
+          class="prod-card group relative overflow-hidden rounded-2xl bg-brand-charcoal border border-white/5 aspect-[4/5] flex flex-col justify-end p-6 cursor-pointer">
+          <img src="https://3.imimg.com/data3/QA/OS/MY-9039037/desiccated-coconut-powder-250x250.jpg"
+            alt="Desiccated Coconut Powder"
+            class="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-luminosity group-hover:mix-blend-normal group-hover:scale-110 group-hover:opacity-100 transition-all duration-700">
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-brand-black via-brand-black/40 to-transparent opacity-90 group-hover:opacity-60 transition-opacity duration-500">
+          </div>
+          <div
+            class="relative z-10 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+            <h3 class="text-2xl font-serif text-brand-sand mb-2">Desiccated Powder</h3>
+            <p
+              class="text-brand-muted text-sm tracking-wide opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 uppercase">
+              Culinary Grade</p>
+          </div>
+        </div>
+
+        <!-- Item 9 -->
+        <div
+          class="prod-card group relative overflow-hidden rounded-2xl bg-brand-charcoal border border-white/5 aspect-[4/5] flex flex-col justify-end p-6 cursor-pointer">
+          <img src="https://3.imimg.com/data3/HU/LI/MY-9039037/coconut-copra-250x250.jpg" alt="Coconut Milling Copra"
+            class="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-luminosity group-hover:mix-blend-normal group-hover:scale-110 group-hover:opacity-100 transition-all duration-700">
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-brand-black via-brand-black/40 to-transparent opacity-90 group-hover:opacity-60 transition-opacity duration-500">
+          </div>
+          <div
+            class="relative z-10 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+            <h3 class="text-2xl font-serif text-brand-sand mb-2">Milling Copra</h3>
+            <p
+              class="text-brand-muted text-sm tracking-wide opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 uppercase">
+              Extraction Ready</p>
+          </div>
+        </div>
+
+        <!-- Item 10 -->
+        <div
+          class="prod-card group relative overflow-hidden rounded-2xl bg-brand-charcoal border border-white/5 aspect-[4/5] flex flex-col justify-end p-6 cursor-pointer md:col-span-2 lg:col-span-1">
+          <img src="https://3.imimg.com/data3/NV/TK/MY-9039037/coconut-edible-copra-250x250.jpg"
+            alt="Coconut Edible Copra"
+            class="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-luminosity group-hover:mix-blend-normal group-hover:scale-110 group-hover:opacity-100 transition-all duration-700">
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-brand-black via-brand-black/40 to-transparent opacity-90 group-hover:opacity-60 transition-opacity duration-500">
+          </div>
+          <div
+            class="relative z-10 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+            <h3 class="text-2xl font-serif text-brand-sand mb-2">Edible Copra</h3>
+            <p
+              class="text-brand-muted text-sm tracking-wide opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 uppercase">
+              Direct Consumption</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ENVIRONMENT IMAGE BANNER -->
+  <section class="h-[50vh] w-full relative group overflow-hidden">
+    <div class="absolute inset-0 bg-brand-gold/20 mix-blend-multiply z-10 pointer-events-none"></div>
+    <img
+      src="https://i.guim.co.uk/img/media/accf54d06fd0bda65c315f015bb378b9400faec9/0_168_7360_4417/master/7360.jpg?width=1200&quality=85&auto=format&fit=max&s=646133368d91423298fb95f6b02a22d7"
+      class="w-full h-full object-cover scale-100 group-hover:scale-105 transition-transform duration-[2000ms] ease-out">
+  </section>
+
+  <!-- CONTACT / WHERE - Weighted Conversion Zone -->
+  <section id="contact" class="py-32 bg-brand-dark relative z-20">
+    <div class="max-w-5xl mx-auto px-6 text-center">
+
+      <div class="contact-elem space-y-6 mb-16">
+        <h2 class="font-serif text-5xl md:text-7xl text-brand-sand">Establish Contact</h2>
+        <p class="text-xl text-brand-muted font-light max-w-2xl mx-auto">
+          We offer full-service for any need, large or small. We understand your needs and we serve to satisfy the
+          criteria of uncompromising quality.
+        </p>
+      </div>
+
+      <div class="contact-elem grid grid-cols-1 md:grid-cols-2 gap-8 mb-16 text-left">
+        <div
+          class="p-8 rounded-2xl bg-brand-charcoal border border-white/5 flex flex-col gap-4 group hover:border-brand-gold/30 transition-colors">
+          <div
+            class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-brand-gold group-hover:scale-110 transition-transform">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <h4 class="text-brand-sand font-medium uppercase tracking-widest text-sm">Operations</h4>
+          <p class="text-brand-muted text-2xl font-serif">Everyday 9:00 AM — 5:00 PM</p>
+        </div>
+
+        <div
+          class="p-8 rounded-2xl bg-brand-charcoal border border-white/5 flex flex-col gap-4 group hover:border-brand-gold/30 transition-colors cursor-pointer"
+          onclick="window.open('https://goo.gl/maps/kLi3HeEjaDDJ4p5A7', '_blank')">
+          <div
+            class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-brand-gold group-hover:scale-110 transition-transform">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+          </div>
+          <h4 class="text-brand-sand font-medium uppercase tracking-widest text-sm">Headquarters</h4>
+          <p class="text-brand-muted text-2xl font-serif group-hover:text-brand-sand transition-colors">Savadipalayam,
+            Kangeyam, TN</p>
+        </div>
+      </div>
+
+      <a href="https://goo.gl/maps/kLi3HeEjaDDJ4p5A7" target="_blank"
+        class="contact-elem inline-block relative overflow-hidden rounded-2xl group w-full max-w-4xl border border-white/10 hover:border-brand-gold/50 transition-colors duration-500">
+        <img src="https://i.ibb.co/74h87NG/Screenshot-199.png" alt="Map Location"
+          class="w-full h-auto opacity-70 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700">
+        <div
+          class="absolute inset-0 bg-brand-black/40 group-hover:bg-brand-black/10 transition-colors duration-500 flex items-center justify-center">
+          <span
+            class="px-8 py-4 bg-brand-black/80 backdrop-blur-md rounded-full text-brand-sand text-sm uppercase tracking-widest border border-white/10 group-hover:border-brand-gold shadow-2xl transition-all font-semibold">Initiate
+            Navigation</span>
+        </div>
       </a>
-      <a href="javascript:void(0)" onclick="openMenu(event, '2/2');">
-        <div class="w3-col s6 tablink">2/2</div>
-      </a>
+
     </div>
+  </section>
 
-    <div id="1/2" class="w3-container menu w3-padding-48 w3-card">
-      <h5>Coconut Oil</h5>
-      <img src="https://3.imimg.com/data3/QS/WQ/MY-9039037/natural-coconut-oil-250x250.jpg">
-      <br>
-      <br><br>
-    
-      <h5>Dry Coconut Powder</h5>
-      <img src="https://3.imimg.com/data3/CJ/FN/MY-9039037/coconut-powder-250x250.jpg">
-      <br><br><br>
-    
-      <h5>Coconut Copra Cake</h5>
-      <img src="https://3.imimg.com/data3/CA/BB/MY-9039037/coconut-milling-copra-250x250.jpg">
-      <br><br><br>
-      
-      <h5>Coconut Fiber</h5>
-      <img src="https://3.imimg.com/data3/JU/YP/MY-9039037/coconut-fiber-250x250.jpg">
-      <br><br><br>
-    
-      <h5>Coconut Oil Cake</h5>
-      <img src="https://3.imimg.com/data3/EG/YB/MY-9039037/coconut-oil-cake-250x250.jpg">
-      <br><br><br>
+  <!-- FOOTER - System Status Styling -->
+  <footer class="bg-brand-black py-12 border-t border-white/10 relative z-20">
+    <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="flex items-center gap-3">
+        <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+        <span class="font-mono text-xs text-brand-muted tracking-widest uppercase">System Operational</span>
+      </div>
+
+      <p class="text-brand-muted text-sm font-light">
+        &copy; <span id="year"></span> Arokya Oil Mill. All rights reserved.
+      </p>
+
+      <div class="text-sm font-light text-brand-muted">
+        Engineered by <a href="https://www.instagram.com/gdhanush270/" target="_blank"
+          class="text-brand-sand hover:text-brand-gold transition-colors font-medium">Dhanush</a>
+      </div>
     </div>
+  </footer>
 
-    <div id="2/2" class="w3-container menu w3-padding-48 w3-card">
-      <h5>Coconut Ball Copra</h5>
-      <img src="https://3.imimg.com/data3/QL/EQ/MY-9039037/coconut-ball-copra-250x250.jpg">
-      <br><br><br>
-    
-      <h5>Husked Coconut</h5>
-      <img src="https://3.imimg.com/data3/KR/GR/MY-9039037/husked-coconut-250x250.jpg">
-      <br><br><br>
-    
-      <h5>Desiccated Coconut Powder</h5>
-      <img src="https://3.imimg.com/data3/QA/OS/MY-9039037/desiccated-coconut-powder-250x250.jpg">
-      <br><br><br>
-    
-      <h5>Coconut Milling Copra</h5>
-      <img src="https://3.imimg.com/data3/HU/LI/MY-9039037/coconut-copra-250x250.jpg">
-      <br><br><br>
-    
-      <h5>Coconut Edible Copra</h5>
-      <img src="https://3.imimg.com/data3/NV/TK/MY-9039037/coconut-edible-copra-250x250.jpg">
-    </div>  
-    <img src="https://i.guim.co.uk/img/media/accf54d06fd0bda65c315f015bb378b9400faec9/0_168_7360_4417/master/7360.jpg?width=1200&quality=85&auto=format&fit=max&s=646133368d91423298fb95f6b02a22d7" style="width:100%;max-width:1000px;margin-top:32px;">
-  </div>
-</div>
+  <!-- Scripts -->
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-<!-- Contact/Area Container -->
-<div class="w3-container" id="where" style="padding-bottom:32px;">
-  <div class="w3-content" style="max-width:700px">
-    <h5 class="w3-center w3-padding-48"><span class="w3-tag w3-wide">WHERE TO FIND US</span></h5>
-    <p>Find us at Kangeyam at Tirupur.</p>
-    <img src="https://i.ibb.co/74h87NG/Screenshot-199.png" class="w3-image" style="width:100%">
-    <p><span class="w3-tag">FYI!</span> We offer full-service for any need, large or small. We understand your needs and we will serve you to satisfy the biggerst criteria of QUALITY</p>
-    
-  </div>
-</div>
+    // GSAP Animation Lifecycle
+    gsap.registerPlugin(ScrollTrigger);
 
-<!-- End page content -->
-</div>
+    // Initial Load Sequence
+    const tl = gsap.timeline();
 
-<!-- Footer -->
-<footer class="w3-center w3-light-grey w3-padding-48 w3-large">
-  <p>Devoloped and maintained by <a href="https://www.instagram.com/gdhanush270/" title="W3.CSS" target="_blank" class="w3-hover-text-green">Dhanush</a></p>
-</footer>
+    tl.to("#hero-img", {
+      scale: 1,
+      duration: 2,
+      ease: "power2.out"
+    })
+      .to(".hero-elem", {
+        y: 0,
+        opacity: 1,
+        duration: 1,
+        stagger: 0.2,
+        ease: "power3.out"
+      }, "-=1.5")
+      .fromTo("#navbar", {
+        y: -50,
+        opacity: 0
+      }, {
+        y: 0,
+        opacity: 1,
+        duration: 1,
+        ease: "power3.out"
+      }, "-=1");
 
-<script>
-// Tabbed Menu
-function openMenu(evt, menuName) {
-  var i, x, tablinks;
-  x = document.getElementsByClassName("menu");
-  for (i = 0; i < x.length; i++) {
-    x[i].style.display = "none";
-  }
-  tablinks = document.getElementsByClassName("tablink");
-  for (i = 0; i < x.length; i++) {
-    tablinks[i].className = tablinks[i].className.replace(" w3-dark-grey", "");
-  }
-  document.getElementById(menuName).style.display = "block";
-  evt.currentTarget.firstElementChild.className += " w3-dark-grey";
-}
-document.getElementById("myLink").click();
-</script>
+    // Scroll Animations
+    // Navbar morph on scroll
+    ScrollTrigger.create({
+      start: "top -50",
+      end: 99999,
+      toggleClass: { className: "bg-brand-black/90", targets: "#navbar" }
+    });
 
+    // Value Props Reveal
+    gsap.to(".val-prop", {
+      scrollTrigger: {
+        trigger: ".val-prop",
+        start: "top 80%",
+      },
+      y: 0,
+      opacity: 1,
+      duration: 0.8,
+      stagger: 0.2,
+      ease: "power3.out"
+    });
+
+    // About Text
+    gsap.from(".about-text", {
+      scrollTrigger: {
+        trigger: ".about-text",
+        start: "top 75%",
+      },
+      x: -30,
+      opacity: 0,
+      duration: 1,
+      ease: "power3.out"
+    });
+
+    // About Image Parallax
+    gsap.from(".about-img", {
+      scrollTrigger: {
+        trigger: ".about-img",
+        start: "top 80%",
+      },
+      y: 50,
+      opacity: 0,
+      duration: 1.2,
+      ease: "power4.out"
+    });
+
+    // Products Header
+    gsap.from(".prod-header", {
+      scrollTrigger: {
+        trigger: ".prod-header",
+        start: "top 80%",
+      },
+      y: 30,
+      opacity: 0,
+      duration: 0.8,
+      ease: "power3.out"
+    });
+
+    // Product Cards Stagger
+    gsap.from(".prod-card", {
+      scrollTrigger: {
+        trigger: "#products",
+        start: "top 70%",
+      },
+      y: 40,
+      opacity: 0,
+      duration: 0.8,
+      stagger: 0.1,
+      ease: "power3.out"
+    });
+
+    // Contact Elements Reveal
+    gsap.from(".contact-elem", {
+      scrollTrigger: {
+        trigger: "#contact",
+        start: "top 80%",
+      },
+      y: 30,
+      opacity: 0,
+      duration: 0.8,
+      stagger: 0.2,
+      ease: "power3.out"
+    });
+
+  </script>
 </body>
+
 </html>
